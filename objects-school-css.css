@@ -1,0 +1,155 @@
+body{
+    font-family: sans-serif;
+}
+
+div{
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto 0;
+    background-color: lightgrey;
+    display: inline-block;
+}
+
+h3{
+    margin-top: 0;
+    text-align: center;
+}
+
+input[type="text"]{
+    max-width: 90px;
+    outline:0;
+}
+
+select{
+    outline:0;
+}
+
+button{
+    margin:20px auto;
+    padding:10px;
+    font-size: medium;
+    border-radius: 15px;
+    background-color: green;
+    border: 0;
+    color: white;
+    display: block;
+    outline: 0;
+    text-align: center;
+}
+button:hover{
+    background-color: darkgreen;
+}
+button:active{
+    background-color: #004b00;
+}
+
+#construct0{
+    display:block;
+}
+.hiddenAtStart{
+    display: none;
+}
+.noPadding{
+    padding: 0;
+    margin: 0;
+}
+
+.fadeIn{
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s, visibility 0s;
+}
+
+#sidebar{
+    float: left;
+    background-color: white;
+    margin-right: 15px;
+    margin-top: 0;
+    width:310px;
+    height:440px;
+}
+#errorDiv{
+    max-width: 200px;
+    text-align: center;
+    position:fixed;
+    top:50%;
+    left:50%;
+    margin: -200px -100px;
+}
+
+table{
+    display: inline;
+    border-collapse: collapse;
+    cursor: default;
+}
+
+th, td{
+    padding: 3px;
+    border: 1px solid black;
+    min-width: 160px;
+    transition:0.25s;
+    text-indent: 5em hanging;
+}
+tr{
+    background-color: white;
+    transition: 0.25s;
+}
+td:hover{
+    background-color: #dcdcdc;
+}
+.changeAsRow:hover{
+    background-color: #dcdcdc;
+}
+th{
+    background-color: #5faf5b;
+}
+th:hover{
+    background-color: #489048;
+}
+
+.notDecorativeButton{
+    margin:0 auto;
+    padding:5px;
+    font-size: 9pt;
+    border-radius: 8px;
+    display: inline;
+}
+
+.prepToHide{
+    display: inline-block;
+}
+
+.centerMe{
+    text-align: center;
+}
+
+.formElementStuckHere{
+    background-color: #eaeaea;
+    margin:5px;
+    padding:5px;
+    border-radius: 5px;
+    font-size: 10pt;
+    max-width: 120px;
+}
+
+#sectionSize{
+    width:80px;
+    float: right;
+    margin:0 10px 0 0;
+}
+
+
+.menu{
+    position: absolute;
+    margin:0 auto;
+    display:block;
+    text-align: center;
+}
+
+.overflowTableCell{
+    max-width: 220px;
+}
+
+.app_setting *:hover {
+    cursor:move;
+}

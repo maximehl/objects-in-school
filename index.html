@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School Builder</title>
+    <script src="objects-school-js.js"></script>
+    <link rel="stylesheet" type="text/css" href="objects-school-css.css">
+</head>
+<body>
+
+<div id="sidebar">
+    <button onclick="showHideObject('constructPersonMenu', 1); showHideObject('constructSectionMenu', 3);">Add a person</button>
+    <button onclick="showHideObject('constructSectionMenu', 1); showHideObject('constructPersonMenu', 3);">Add a section</button>
+
+    <div id="constructPersonMenu" class="fadeIn menu">
+        <h3>Create a person:</h3>
+        <input type="radio" title="" name="personType" value="0" checked="checked" onClick="studentTeacherChange(0)"> Student
+        <input type="radio" title="" name="personType" value="1" onClick="studentTeacherChange(1)"> Teacher
+        <br>
+        First Name: <input type="text" id="firstName" title="Enter the person's first name." value="Jane"
+                           oninput="checkEverything(0)"><br>
+        Last Name: <input type="text" id="lastName" title="Enter the person's last name." value="Doe"
+                          oninput="checkEverything(0)"><br>
+        ID Number: <input type="text" id="idNumber0" title="Enter the person's ID number." value="9999"
+                          oninput="checkEverything(0)">
+        <br>
+        <div id="construct0" class="noPadding">
+            Student Grade:
+            <select id="0extra" title="Select the student's grade number.">
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div id="construct1" class="hiddenAtStart noPadding">
+            Teacher Subject:
+            <select id="1extra" title="Select the teacher's subject.">
+                <option value="English">English</option>
+                <option value="Math">Math</option>
+                <option value="History">History</option>
+                <option value="Science">Science</option>
+                <option value="Social Sciences">Social Sciences</option>
+                <option value="Art">Art</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Foreign Language">Foreign Language</option>
+            </select>
+        </div>
+        <div id="personButton" class="formElementStuckHere">
+            <button onclick="createPerson()" class="notDecorativeButton">Add this person</button>
+        </div>
+    </div>
+    <div id="constructSectionMenu" class="fadeIn menu">
+        <h3>Create a section:</h3>
+        Section Name: <input type="text" id="sectionName" title="Enter the section's name."
+                             oninput="checkEverything(1)"><br>
+        Section Subject:
+        <select id="sectionSubject" title="Select the subject of the section."
+                onchange="generateClassName(this.value); checkEverything(1);">
+            <option value=""></option>
+            <option value="English">English</option>
+            <option value="Math">Math</option>
+            <option value="History">History</option>
+            <option value="Science">Science</option>
+            <option value="Social Sciences">Social Sciences</option>
+            <option value="Art">Art</option>
+            <option value="Music">Music</option>
+            <option value="Performing Arts">Performing Arts</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Foreign Language">Foreign Language</option>
+        </select><br>
+        Grade Level:
+        <select id="sectionGrade" title="Select the grade level of the section.">
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select><br>
+        Section Teacher:
+        <select id='teacher' title='Select the teacher for this section.'></select><br>
+        Section Max Size: <span id="rangeValue">30</span>
+        <input type="range" min="5" max="40" id="sectionSize" value="30" step="5" oninput="updateRange(this.value)"
+               title="Enter the maximum number of students the section can have.">
+        <br>
+        Period:
+        <select id="sectionPeriod" title="Select what period during which the section is to be taught."
+                onchange="checkEverything(1)">
+            <option value="0">0 Period</option>
+            <option value="1" selected="selected">1st Period</option>
+            <option value="2">2nd Period</option>
+            <option value="3">3rd Period</option>
+            <option value="4">4th Period</option>
+            <option value="5">5th Period</option>
+            <option value="6">6th Period</option>
+            <option value="7">7th Period</option>
+        </select>
+        <br>
+        ID Number: <input type="text" id="idNumber1" title="Enter a class ID number." value="9999"
+                          oninput="checkEverything(1)">
+        <br>
+        <div id="sectionButton" class="formElementStuckHere">
+            Please select the subject for this section.
+        </div>
+    </div>
+    <button onclick="testScript();">Go test me!</button>
+</div>
+
+<div id="errorDiv" class="fadeIn"></div>
+
+<div>
+    <table>
+        <tr>
+            <th colspan="2">School Information</th>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Name:</b></td>
+            <td>
+                <span id="schoolInfoText0"></span>
+                <input type="text" title="Enter your school's name" class="prepToHide" id="schoolInfoInput0">
+                <button onclick="cellSet(0)" class="notDecorativeButton">Change School Name</button>
+            </td>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Student Population:</b></td>
+            <td id="schoolData0">0</td>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Teacher Population:</b></td>
+            <td id="schoolData1">0</td>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Teacher to Student Ratio:</b></td>
+            <td id="schoolData2">0</td>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Mascot:</b></td>
+            <td>
+                <span id="schoolInfoText1"></span>
+                <input type="text" title="Enter your school's name" class="prepToHide" id="schoolInfoInput1">
+                <button onclick="cellSet(1)" class="notDecorativeButton">Change School Mascot</button>
+            </td>
+        </tr>
+        <tr class="changeAsRow">
+            <td><b>School Address:</b></td>
+            <td>
+                <span id="schoolInfoText2"></span>
+                <input type="text" title="Enter your school's address" class="prepToHide" id="schoolInfoInput2">
+                <button onclick="cellSet(2)" class="notDecorativeButton">Change School Address</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div>
+    <table id="displayPeople">
+        <tr>
+            <th>Students</th>
+            <th>Teachers</th>
+            <th>Sections</th>
+        </tr>
+        <tr>
+            <td class="centerMe">(none yet)</td>
+            <td class="centerMe">(none yet)</td>
+            <td class="centerMe">(none yet)</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
