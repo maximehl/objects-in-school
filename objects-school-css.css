@@ -16,8 +16,13 @@ h3{
 }
 
 input[type="text"]{
-    max-width: 90px;
     outline:0;
+}
+.shortTextInput{
+	max-width: 90px;
+}
+.longTextInput{
+    max-width: 150px;
 }
 
 select{
@@ -38,9 +43,19 @@ button{
 }
 button:hover{
     background-color: darkgreen;
+    cursor:pointer;
 }
 button:active{
     background-color: #004b00;
+}
+.randomizerButton{
+    background-color: #6600ff;
+}
+.randomizerButton:hover{
+    background-color: #3d0099;
+}
+.randomizerButton:active{
+    background-color: #140033;
 }
 
 #construct0{
@@ -52,6 +67,8 @@ button:active{
 .noPadding{
     padding: 0;
     margin: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .fadeIn{
@@ -68,14 +85,14 @@ button:active{
     width:310px;
     height:440px;
 }
-#errorDiv{
+/*#errorDiv{
     max-width: 200px;
     text-align: center;
     position:fixed;
     top:50%;
     left:50%;
     margin: -200px -100px;
-}
+}*/
 
 table{
     display: inline;
@@ -115,10 +132,6 @@ th:hover{
     display: inline;
 }
 
-.prepToHide{
-    display: inline-block;
-}
-
 .centerMe{
     text-align: center;
 }
@@ -150,6 +163,51 @@ th:hover{
     max-width: 220px;
 }
 
-.app_setting *:hover {
-    cursor:move;
+.clickable{
+	background-color: rgba(0, 0, 0, 0);
+	vertical-align: top;
+]}
+.clickable:hover{
+    cursor:pointer;
+}
+
+.expandable{
+	transition: height 0.5s ease-out;
+	overflow: hidden;
+	height:0px;
+    width:0px;
+	background-color: rgba(0, 0, 0, 0);
+}
+.expandable.expandableCell{
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+}
+
+#searchButtonImage{
+	height: 15px;
+}
+#searchButton{
+	margin: 10px auto;
+}
+
+#searchHeader{
+    margin-bottom: 0;
+    display: inline;
+}
+
+#searchMenu{
+    overflow-y: scroll;
+    text-align: center;
 }

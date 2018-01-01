@@ -9,24 +9,24 @@
 <body>
 
 <div id="sidebar">
-    <button onclick="showHideObject('constructPersonMenu', 1); showHideObject('constructSectionMenu', 3);">Add a person</button>
-    <button onclick="showHideObject('constructSectionMenu', 1); showHideObject('constructPersonMenu', 3);">Add a section</button>
+    <button onclick="showHideObject('constructPersonMenu', 1); showHideObject('constructSectionMenu', 3); checkEverything(0);">Add a person</button>
+    <button onclick="showHideObject('constructSectionMenu', 1); showHideObject('constructPersonMenu', 3); checkEverything(1);">Add a section</button>
 
     <div id="constructPersonMenu" class="fadeIn menu">
         <h3>Create a person:</h3>
-        <input type="radio" title="" name="personType" value="0" checked="checked" onClick="studentTeacherChange(0)"> Student
-        <input type="radio" title="" name="personType" value="1" onClick="studentTeacherChange(1)"> Teacher
+        <input type="radio" title="" name="personType" value="0" checked="checked" onClick="studentTeacherChange(0); checkEverything(0);"> Student
+        <input type="radio" title="" name="personType" value="1" onClick="studentTeacherChange(1); checkEverything(0);"> Teacher
         <br>
-        First Name: <input type="text" id="firstName" title="Enter the person's first name." value="Jane"
+        First Name: <input type="text" id="firstName" title="Enter the person's first name." value="Jane" class="shortTextInput"
                            oninput="checkEverything(0)"><br>
-        Last Name: <input type="text" id="lastName" title="Enter the person's last name." value="Doe"
+        Last Name: <input type="text" id="lastName" title="Enter the person's last name." value="Doe" class="shortTextInput"
                           oninput="checkEverything(0)"><br>
-        ID Number: <input type="text" id="idNumber0" title="Enter the person's ID number." value="9999"
+        ID Number: <input type="text" id="idNumber0" title="Enter the person's ID number." value="9999" class="shortTextInput"
                           oninput="checkEverything(0)">
         <br>
         <div id="construct0" class="noPadding">
             Student Grade:
-            <select id="0extra" title="Select the student's grade number.">
+            <select id="0extra" title="Select the student's grade number." onchange="checkEverything(0)">
                 <option value="9">9</option>
                 <option value="10">10</option>
                 <option value="11">11</option>
@@ -35,7 +35,7 @@
         </div>
         <div id="construct1" class="hiddenAtStart noPadding">
             Teacher Subject:
-            <select id="1extra" title="Select the teacher's subject.">
+            <select id="1extra" title="Select the teacher's subject." onchange="checkEverything(0)">
                 <option value="English">English</option>
                 <option value="Math">Math</option>
                 <option value="History">History</option>
@@ -51,14 +51,16 @@
         <div id="personButton" class="formElementStuckHere">
             <button onclick="createPerson()" class="notDecorativeButton">Add this person</button>
         </div>
+        <br>
+        <button onclick="randomizePerson()" class="notDecorativeButton randomizerButton">Randomize person</button>
     </div>
     <div id="constructSectionMenu" class="fadeIn menu">
         <h3>Create a section:</h3>
-        Section Name: <input type="text" id="sectionName" title="Enter the section's name."
+        Section Name: <input type="text" id="sectionName" title="Enter the section's name." class="shortTextInput"
                              oninput="checkEverything(1)"><br>
         Section Subject:
         <select id="sectionSubject" title="Select the subject of the section."
-                onchange="generateClassName(this.value); checkEverything(1);">
+                onchange="generateSectionName(this.value); checkEverything(1);">
             <option value=""></option>
             <option value="English">English</option>
             <option value="Math">Math</option>
@@ -72,16 +74,16 @@
             <option value="Foreign Language">Foreign Language</option>
         </select><br>
         Grade Level:
-        <select id="sectionGrade" title="Select the grade level of the section.">
+        <select id="sectionGrade" title="Select the grade level of the section." onchange="checkEverything(1)">
             <option value="9">9</option>
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
         </select><br>
         Section Teacher:
-        <select id='teacher' title='Select the teacher for this section.'></select><br>
+        <select id='teacher' title='Select the teacher for this section.' onchange="checkEverything(1)"></select><br>
         Section Max Size: <span id="rangeValue">30</span>
-        <input type="range" min="5" max="40" id="sectionSize" value="30" step="5" oninput="updateRange(this.value)"
+        <input type="range" min="5" max="40" id="sectionSize" value="30" step="5" oninput="updateRange(this.value); checkEverything(1);"
                title="Enter the maximum number of students the section can have.">
         <br>
         Period:
@@ -97,17 +99,18 @@
             <option value="7">7th Period</option>
         </select>
         <br>
-        ID Number: <input type="text" id="idNumber1" title="Enter a class ID number." value="9999"
+        ID Number: <input type="text" id="idNumber1" title="Enter a section ID number." value="9999" class="shortTextInput"
                           oninput="checkEverything(1)">
         <br>
         <div id="sectionButton" class="formElementStuckHere">
             Please select the subject for this section.
         </div>
+        <br>
+        <button onclick="randomizeSection()" class="notDecorativeButton randomizerButton">Randomize section</button>
     </div>
-    <button onclick="testScript();">Go test me!</button>
 </div>
 
-<div id="errorDiv" class="fadeIn"></div>
+<!--<div id="errorDiv" class="fadeIn"></div>-->
 
 <div>
     <table>
@@ -117,8 +120,8 @@
         <tr class="changeAsRow">
             <td><b>School Name:</b></td>
             <td>
-                <span id="schoolInfoText0"></span>
-                <input type="text" title="Enter your school's name" class="prepToHide" id="schoolInfoInput0">
+                <span id="schoolInfoText0">Berkelby High School</span>
+                <input type="text" title="Enter your school's name" class="hiddenAtStart longTextInput" id="schoolInfoInput0">
                 <button onclick="cellSet(0)" class="notDecorativeButton">Change School Name</button>
             </td>
         </tr>
@@ -137,20 +140,97 @@
         <tr class="changeAsRow">
             <td><b>School Mascot:</b></td>
             <td>
-                <span id="schoolInfoText1"></span>
-                <input type="text" title="Enter your school's name" class="prepToHide" id="schoolInfoInput1">
+                <span id="schoolInfoText1">Yellow Outerwear</span>
+                <input type="text" title="Enter your school's name" class="hiddenAtStart longTextInput" id="schoolInfoInput1">
                 <button onclick="cellSet(1)" class="notDecorativeButton">Change School Mascot</button>
             </td>
         </tr>
         <tr class="changeAsRow">
             <td><b>School Address:</b></td>
             <td>
-                <span id="schoolInfoText2"></span>
-                <input type="text" title="Enter your school's address" class="prepToHide" id="schoolInfoInput2">
+                <span id="schoolInfoText2">1980 Allestone Waye, Berkelby</span>
+                <input type="text" title="Enter your school's address" class="hiddenAtStart longTextInput" id="schoolInfoInput2">
                 <button onclick="cellSet(2)" class="notDecorativeButton">Change School Address</button>
             </td>
         </tr>
     </table>
+</div>
+<br>
+<div id="searchContainer">
+	<h3 id="searchHeader" class="clickable" onclick="toggleSearchMenu()">Search</h3>
+	<div id="searchMenu" class="expandable noPadding">
+		<br>
+        <b>Type: </b>
+		<input type="radio" name="searchType" value="0" checked="checked" onClick="showHideSearchMenus(0)"> Student
+        <input type="radio" name="searchType" value="1" onClick="showHideSearchMenus(1)"> Teacher
+        <input type="radio" name="searchType" value="2" onClick="showHideSearchMenus(2)"> Section
+		
+        <div id="subSearchMenu0" class="noPadding">
+            <p>You can search by first name, last name, or grade level, and you can leave options blank.</p>
+            First Name: <input type="text" id="0search0" title="Enter the student's first name." class="shortTextInput"><br>
+            Last Name: <input type="text" id="0search1" title="Enter the student's last name." class="shortTextInput"><br>
+            Grade:
+            <select id="0search2" title="Select a grade number if you want to search by grade number.">
+                <option value=""></option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div id="subSearchMenu1" class="hiddenAtStart noPadding">
+            <p>You can search by first name, last name, or subject taught, and you can leave options blank.</p>
+            First Name: <input type="text" id="1search0" title="Enter the teacher's first name." class="shortTextInput"><br>
+            Last Name: <input type="text" id="1search1" title="Enter the teacher's last name." class="shortTextInput"><br>
+            Subject Taught:
+            <select id="1search2" title="Select a subject if you want to search by subject.">
+                <option value=""></option>
+                <option value="English">English</option>
+                <option value="Math">Math</option>
+                <option value="History">History</option>
+                <option value="Science">Science</option>
+                <option value="Social Sciences">Social Sciences</option>
+                <option value="Art">Art</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Foreign Language">Foreign Language</option>
+            </select>
+        </div>
+        <div id="subSearchMenu2" class="hiddenAtStart noPadding">
+            <p>You can search by first name, last name, or subject taught, and you can leave options blank.</p>
+            Name: <input type="text" id="2search0" title="Enter the section's name." class="shortTextInput"><br>
+            Subject:
+            <select id="2search1" title="Select a subject if you want to search by subject.">
+                <option value=""></option>
+                <option value="English">English</option>
+                <option value="Math">Math</option>
+                <option value="History">History</option>
+                <option value="Science">Science</option>
+                <option value="Social Sciences">Social Sciences</option>
+                <option value="Art">Art</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Foreign Language">Foreign Language</option>
+            </select><br>
+            Grade Level:
+            <select id="2search2" title="Select a grade level if you want to search by grade level.">
+                <option value=""></option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select><br>
+        </div>
+
+		<button id="searchButton" onclick="searchStuff()">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ic_search_48px.svg/1024px-Ic_search_48px.svg.png" id="searchButtonImage">
+			Search
+		</button>
+        <div id="searchResults" class="noPadding"></div>
+	</div>
+
 </div>
 <br>
 <div>
